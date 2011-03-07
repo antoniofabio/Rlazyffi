@@ -1,0 +1,11 @@
+Package: Rlazyffi
+Type: Package
+Title: Foreign Function Interface for the Lazy
+Version: 1.0
+Date: 2011-03-07
+Author: Antonio, Fabio Di Narzo
+Maintainer: Antonio, Fabio Di Narzo <antonio.fabio@gmail.com>
+Description: Foreign Function Interface for the Lazy
+Depends: Rffi
+License: GPL (>= 3)
+LazyLoad: yes
