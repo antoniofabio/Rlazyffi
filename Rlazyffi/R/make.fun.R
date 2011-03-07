@@ -1,9 +1,9 @@
 make.fun <-
 function(symbol) {
   force(symbol)
-  dictionary <- list(double = doubleType, integer = sint32Type,
-                     character = stringType)
   function(..., RETURN=voidType) {
+    dictionary <- list(double = doubleType, integer = sint32Type,
+                       character = stringType)
     args <- list(...)
     modes <- sapply(args, storage.mode)
     ffiTypes <- vector(length(modes), mode="list")
@@ -25,4 +25,3 @@ function(symbol) {
     }
   }
 }
-
