@@ -6,11 +6,16 @@ function(symbol) {
                        character = stringType)
     args <- list(...)
     modes <- sapply(args, storage.mode)
+    lengths <- sapply(args, length)
+    isscalar <- lengths == 1
     ffiTypes <- vector(length(modes), mode="list")
     if(length(ffiTypes) > 0) {
       inDict <- modes %in% names(dictionary)
-      ffiTypes[inDict] <- dictionary[modes[inDict]]
-      ffiTypes[!inDict] <- pointerType
+      ffiTypes[inDict & isscalar] <- dictionary[modes[inDict & isscalar]]
+      for(i in which(inDict & !isscalar)) {
+        ffiTypes[[i]] <- arrayType(dictionary[[ modes[[i]] ]], lengths[i])
+      }
+      ffiTypes[!(inDict & isscalar)] <- pointerType
     }
     cif <- prepCIF(RETURN, ffiTypes)
     ans <- callCIF(cif, symbol, ...)
